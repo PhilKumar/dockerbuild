@@ -3,7 +3,7 @@ trigger:
   - main
 
 pool:
-  vmImage: ec2-pool
+  name: Default
 
 variables:
   imageName: 'philip-flask-cicd'
