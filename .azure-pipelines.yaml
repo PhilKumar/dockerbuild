@@ -9,14 +9,10 @@ variables:
   imageName: 'philip-flask-cicd'
 
 steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.x'
-
   - script: |
-      pip install -r requirements.txt
-      docker build -t $(imageName) .
-    displayName: 'Build and dockerize build app'
+    python3 -m pip install -r requirements.txt
+    docker build -t $(imageName) .
+    displayName: 'Build and Dockerize Flask App'
 
   - task: SSH@0
     inputs:
