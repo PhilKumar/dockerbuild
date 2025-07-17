@@ -2,6 +2,7 @@ FROM python:3.9-slim
 WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
+RUN python -m pip install --upgrade pip > /dev/null 2>&1 || true
 EXPOSE 5000
 CMD ["python", "app.py"]
 # This Dockerfile sets up a Python Flask application in a Docker container.
