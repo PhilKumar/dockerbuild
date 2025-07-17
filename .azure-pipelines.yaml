@@ -10,8 +10,8 @@ variables:
 
 steps:
   - script: |
-    python3 -m pip install -r requirements.txt
-    docker build -t $(imageName) .
+     python3 -m pip install -r requirements.txt
+     docker build -t $(imageName) .
     displayName: 'Build and Dockerize Flask App'
 
   - task: SSH@0
