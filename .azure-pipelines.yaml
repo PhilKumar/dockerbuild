@@ -14,6 +14,19 @@ steps:
      docker build -t $(imageName) .
     displayName: 'Build and Dockerize Flask App'
 
+  - script: |
+      echo "Current working directory is: $PWD"
+      ls -l
+    displayName: 'Show pipeline working directory'  
+
+  - task: CopyFilesOverSSH@0
+    inputs:
+      sshEndpoint: 'ec2-ssh-service-connection'
+      sourceFolder: '$(System.DefaultWorkingDirectory)'
+      contents: '**'
+      targetFolder: '/home/ubuntu/flaskcicd'
+    displayName: 'Copy source code to EC2'
+
   - task: SSH@0
     inputs:
       sshEndpoint: 'ec2-ssh-service-connection'
