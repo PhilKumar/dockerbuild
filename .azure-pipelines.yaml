@@ -1,0 +1,30 @@
+trigger
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  imageName: 'philip-falsk-cicd'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- script: |
+    pip install -r requirements.txt
+    docker build -t $(imageName) .
+  displayName: 'Build and dockerize build app'
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'ec2-ssh-service-connection'
+    runOptions: 'Inline'
+    inline: |
+      cd /home/ubuntu/flaskcicd
+      docker stop flaskapp || true
+      docker rm flaskapp || true
+      docker build -t flaskapp .
+      docker run -d -p 5000:5000 --name flaskapp flaskapp
+  displayName: 'Deploy to EC2 instance'    
