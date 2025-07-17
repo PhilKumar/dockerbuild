@@ -30,7 +30,7 @@ steps:
   - task: SSH@0
     inputs:
       sshEndpoint: 'ec2-ssh-service-connection'
-      runOptions: 'Inline'
+      runOptions: 'inline'
       inline: |
         cd /home/ubuntu/flaskcicd
         docker stop flaskapp || true
